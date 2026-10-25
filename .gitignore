@@ -1,0 +1,15 @@
+node_modules/
+artifacts/
+test-results/
+playwright-report/
+.env
+.env.*
+!.env.example
+*.log
+*.pem
+*.key
+*.p12
+*.crx
+bookit-backup-*.json
+.DS_Store
+Thumbs.db

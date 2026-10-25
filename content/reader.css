@@ -1,0 +1,910 @@
+/* کتاب‌خوان — استایل نمای کتابی (داخل Shadow DOM) */
+:host {
+  all: initial;
+}
+.kk-root[dir="ltr"] {
+  direction: ltr;
+}
+.kk-root[dir="rtl"] {
+  direction: rtl;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+button,
+select,
+textarea {
+  font-family: inherit;
+}
+
+.kk-root {
+  position: fixed;
+  inset: 0;
+  direction: rtl;
+  font-family:
+    "Vazirmatn", "Vazir", "IRANSansX", "IRANSans", "Noto Sans Arabic", Tahoma,
+    "Segoe UI", sans-serif;
+  font-size: 14px;
+  color: var(--tx);
+  display: flex;
+  flex-direction: column;
+  background: var(--stage);
+  --accent: #225de7;
+  --accent-soft: #eaf2ff;
+  --ok: #46a171;
+}
+.kk-root[data-theme="light"] {
+  --stage: #f0f5fc;
+  --paper: #ffffff;
+  --tx: #172c48;
+  --tx2: #536b88;
+  --bd: #dce7f5;
+  --surface: #f8fbff;
+  --raised: #ffffff;
+}
+.kk-root[data-theme="sepia"] {
+  --stage: #eae0cc;
+  --paper: #f9f3e4;
+  --tx: #3d3426;
+  --tx2: #8a7f6a;
+  --bd: #e4dac2;
+  --surface: #f3ebd8;
+  --raised: #fbf6ea;
+}
+.kk-root[data-theme="dark"] {
+  --stage: #191919;
+  --paper: #202020;
+  --tx: #ffffff;
+  --tx2: rgba(255, 255, 255, 0.65);
+  --bd: rgba(255, 255, 255, 0.2);
+  --surface: #202020;
+  --raised: #383836;
+  --accent: #5e9fe8;
+  --accent-soft: rgba(94, 159, 232, 0.14);
+  --ok: #72bc8f;
+}
+
+/* ---------- نوار ابزار ---------- */
+.kk-toolbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  height: 56px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--bd);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.kk-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  margin-inline-end: auto;
+}
+.kk-title svg {
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+  flex: 0 0 auto;
+}
+.kk-title-text {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 34vw;
+  font-size: 14px;
+}
+.kk-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+.kk-btn {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--tx);
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.kk-btn:hover {
+  background: var(--raised);
+  border-color: var(--bd);
+}
+.kk-btn:focus-visible,
+.kk-select:focus-visible,
+.kk-ta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.kk-btn[data-on="1"] {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.kk-btn svg {
+  width: 16px;
+  height: 16px;
+}
+.kk-sep {
+  width: 1px;
+  height: 20px;
+  background: var(--bd);
+  margin: 0 4px;
+  flex: 0 0 auto;
+}
+.kk-size-val {
+  font-size: 12px;
+  color: var(--tx2);
+  min-width: 22px;
+  text-align: center;
+}
+.kk-select {
+  font: inherit;
+  font-size: 13px;
+  color: var(--tx);
+  background: var(--surface);
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  height: 32px;
+  padding: 0 8px;
+  max-width: 150px;
+}
+.kk-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  display: inline-block;
+}
+.kk-theme[data-on="1"] .kk-swatch {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.kk-count {
+  font-size: 11px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  min-width: 16px;
+  height: 16px;
+  line-height: 16px;
+  padding: 0 4px;
+  display: none;
+}
+.kk-count[data-show="1"] {
+  display: inline-block;
+}
+
+/* ---------- بدنه ---------- */
+.kk-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  position: relative;
+}
+.kk-stage {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.kk-scroller {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.kk-pagewrap {
+  padding: 32px 24px 64px;
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
+}
+.kk-paper {
+  background: var(--paper);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  max-width: calc(var(--kk-width, 700px) + 128px);
+  padding: 56px 64px;
+}
+.kk-flowclip {
+  height: auto;
+}
+
+/* ---------- متن مقاله ---------- */
+.kk-flow {
+  font-family: var(--kk-font);
+  font-size: var(--kk-size, 19px);
+  line-height: var(--kk-lh, 2);
+  color: var(--tx);
+}
+.kk-article,
+.kk-h-title,
+.kk-meta {
+  max-width: var(--kk-width, 700px);
+  margin-inline: auto;
+}
+.kk-h-title {
+  font-size: 1.75em;
+  line-height: 1.6;
+  font-weight: 700;
+  margin: 0 auto 12px;
+}
+.kk-meta {
+  color: var(--tx2);
+  font-size: 0.72em;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--bd);
+  margin-bottom: 32px;
+}
+.kk-article p {
+  margin: 0 0 1.15em;
+  text-align: justify;
+}
+.kk-article h1,
+.kk-article h2 {
+  font-size: 1.35em;
+  line-height: 1.7;
+  margin: 1.6em 0 0.6em;
+}
+.kk-article h3,
+.kk-article h4,
+.kk-article h5,
+.kk-article h6 {
+  font-size: 1.15em;
+  line-height: 1.7;
+  margin: 1.5em 0 0.5em;
+}
+.kk-article ul,
+.kk-article ol {
+  margin: 0 0 1.15em;
+  padding-inline-start: 1.6em;
+}
+.kk-article li {
+  margin-bottom: 0.35em;
+}
+.kk-article img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 28px auto;
+}
+.kk-article figure {
+  margin: 28px 0;
+}
+.kk-article figcaption {
+  font-size: 0.75em;
+  color: var(--tx2);
+  text-align: center;
+  margin-top: 8px;
+}
+.kk-article blockquote {
+  margin: 24px 0;
+  padding: 4px 20px;
+  border-inline-start: 3px solid var(--accent);
+  color: var(--tx2);
+}
+.kk-article pre {
+  direction: ltr;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  font-family: Menlo, Consolas, monospace;
+  font-size: 0.7em;
+  line-height: 1.7;
+}
+.kk-article code {
+  font-family: Menlo, Consolas, monospace;
+  font-size: 0.82em;
+  background: var(--surface);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+.kk-article pre code {
+  background: none;
+  padding: 0;
+}
+.kk-article table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 24px 0;
+  font-size: 0.82em;
+}
+.kk-article td,
+.kk-article th {
+  border: 1px solid var(--bd);
+  padding: 8px 12px;
+  text-align: start;
+}
+.kk-article th {
+  background: var(--surface);
+}
+.kk-article a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-soft);
+}
+.kk-article a:hover {
+  border-bottom-color: var(--accent);
+}
+.kk-article hr {
+  border: none;
+  border-top: 1px solid var(--bd);
+  margin: 32px auto;
+  max-width: var(--kk-width, 700px);
+}
+
+/* ---------- هایلایت و یادداشت ---------- */
+.kk-ann {
+  background: var(--kk-hl, #f5e6a8);
+  color: #2c2c2b;
+  border-radius: 2px;
+  padding: 1px 0;
+  cursor: pointer;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.kk-ann-note,
+.kk-ann-question {
+  border-bottom: 2px dotted rgba(44, 44, 43, 0.55);
+}
+.kk-ann-end::after {
+  display: inline-block;
+  font-size: 10px;
+  line-height: 15px;
+  vertical-align: super;
+  background: #2c2c2b;
+  color: #fff;
+  border-radius: 4px;
+  padding: 0 4px;
+  margin-inline-start: 3px;
+}
+.kk-ann-note.kk-ann-end::after {
+  content: "✎";
+}
+.kk-ann-question.kk-ann-end::after {
+  content: "؟";
+}
+.kk-flash {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- نوار وضعیت ---------- */
+.kk-status {
+  flex: 0 0 auto;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+  border-top: 1px solid var(--bd);
+  background: var(--surface);
+  color: var(--tx2);
+  font-size: 12px;
+}
+.kk-pagenav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+.kk-root[data-paged="1"] .kk-pagenav {
+  display: inline-flex;
+}
+.kk-root[data-paged="1"] .kk-progress {
+  display: none;
+}
+.kk-pagenav .kk-btn {
+  height: 26px;
+  font-size: 12px;
+}
+.kk-pagenav .kk-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.kk-saved {
+  margin-inline-start: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ok);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.kk-saved[data-show="1"] {
+  opacity: 1;
+}
+
+/* ---------- حالت صفحه‌به‌صفحه (کتابی) ---------- */
+.kk-root[data-paged="1"] .kk-scroller {
+  overflow: hidden;
+}
+.kk-root[data-paged="1"] .kk-pagewrap {
+  height: 100%;
+  padding: 24px;
+}
+.kk-root[data-paged="1"] .kk-paper {
+  height: 100%;
+  overflow: hidden;
+  padding: 40px 56px;
+}
+.kk-root[data-paged="1"] .kk-flowclip {
+  height: 100%;
+  overflow: hidden;
+}
+.kk-root[data-paged="1"] .kk-flow {
+  height: 100%;
+  column-gap: 64px;
+  transition: transform 0.25s ease;
+}
+.kk-root[data-paged="1"] .kk-article,
+.kk-root[data-paged="1"] .kk-h-title,
+.kk-root[data-paged="1"] .kk-meta {
+  max-width: none;
+}
+
+/* ---------- پاپ‌اور انتخاب متن ---------- */
+.kk-pop {
+  position: fixed;
+  z-index: 10;
+  background: #2c2c2b;
+  color: #fff;
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+}
+.kk-pop[data-open="1"] {
+  display: flex;
+}
+.kk-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  padding: 0;
+  flex: 0 0 auto;
+}
+.kk-dot:hover {
+  border-color: #fff;
+}
+.kk-pop-act {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.kk-pop-act:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.kk-vsep {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ---------- دیالوگ یادداشت/پرسش ---------- */
+.kk-dlg-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  padding: 24px;
+}
+.kk-dlg-backdrop[data-open="1"] {
+  display: flex;
+}
+.kk-dlg {
+  width: 100%;
+  max-width: 440px;
+  background: var(--paper);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 12px 32px rgba(0, 0, 0, 0.18);
+  max-height: 82vh;
+  overflow-y: auto;
+}
+.kk-dlg h3 {
+  margin: 0 0 14px;
+  font-size: 15px;
+}
+.kk-quote {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--tx2);
+  border-inline-start: 3px solid var(--kk-hl, #f5e6a8);
+  padding: 4px 12px;
+  margin: 0 0 16px;
+  max-height: 96px;
+  overflow-y: auto;
+}
+.kk-dlg-colors {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.kk-dlg .kk-dot {
+  border: 2px solid var(--bd);
+}
+.kk-dlg .kk-dot[data-on="1"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+.kk-field label {
+  display: block;
+  font-size: 12px;
+  color: var(--tx2);
+  margin: 0 0 6px;
+}
+.kk-ta {
+  width: 100%;
+  min-height: 72px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--tx);
+  background: var(--surface);
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  padding: 10px 12px;
+  resize: vertical;
+  margin-bottom: 14px;
+}
+.kk-dlg-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.kk-btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  height: 34px;
+  padding: 0 18px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.kk-btn-primary:hover {
+  filter: brightness(1.06);
+}
+.kk-btn-ghost {
+  background: transparent;
+  border: 1px solid var(--bd);
+  color: var(--tx);
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.kk-btn-ghost:hover {
+  background: var(--raised);
+}
+.kk-btn-danger {
+  background: transparent;
+  border: none;
+  color: #e56458;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  margin-inline-start: auto;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+.kk-btn-danger:hover {
+  background: #fce9e7;
+}
+.kk-root[data-theme="dark"] .kk-btn-danger {
+  color: #e97366;
+}
+.kk-root[data-theme="dark"] .kk-btn-danger:hover {
+  background: rgba(233, 115, 102, 0.14);
+}
+
+/* ---------- سایدبار یادداشت‌ها ---------- */
+.kk-sidebar {
+  flex: 0 0 300px;
+  border-inline-start: 1px solid var(--bd);
+  background: var(--surface);
+  overflow-y: auto;
+  padding: 16px;
+  display: none;
+}
+.kk-root[data-sidebar="1"] .kk-sidebar {
+  display: block;
+}
+.kk-sb-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+.kk-sb-h {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tx2);
+  margin: 18px 0 8px;
+}
+.kk-sb-item {
+  background: var(--paper);
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.kk-sb-item:hover {
+  border-color: var(--accent);
+}
+.kk-sb-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.kk-sb-quote {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  flex: 1;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--tx);
+  border-inline-start: 3px solid var(--kk-hl, #f5e6a8);
+  padding-inline-start: 8px;
+}
+.kk-sb-del {
+  background: transparent;
+  border: none;
+  color: var(--tx2);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  flex: 0 0 auto;
+}
+.kk-sb-del:hover {
+  color: #e56458;
+  background: var(--raised);
+}
+.kk-sb-note {
+  font-size: 12px;
+  color: var(--tx2);
+  margin-top: 8px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.kk-sb-note strong {
+  color: var(--tx);
+  font-weight: 600;
+}
+.kk-sb-orphan {
+  display: inline-block;
+  font-size: 11px;
+  color: #d5803b;
+  background: #fbebde;
+  border-radius: 6px;
+  padding: 1px 6px;
+  margin-top: 8px;
+}
+.kk-empty {
+  font-size: 12.5px;
+  color: var(--tx2);
+  line-height: 2;
+  margin: 8px 0;
+}
+
+/* ---------- موبایل ---------- */
+@media (max-width: 720px) {
+  .kk-pagewrap {
+    padding: 0 0 48px;
+  }
+  .kk-paper {
+    padding: 32px 20px;
+    border-radius: 0;
+    border-inline: none;
+    border-top: none;
+    max-width: none;
+  }
+  .kk-root[data-paged="1"] .kk-pagewrap {
+    padding: 12px;
+  }
+  .kk-root[data-paged="1"] .kk-paper {
+    padding: 24px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--bd);
+  }
+  .kk-title-text {
+    max-width: 26vw;
+  }
+  .kk-sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    inset-inline-start: 0;
+    width: min(320px, 92vw);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+    z-index: 5;
+  }
+  .kk-select {
+    max-width: 110px;
+  }
+}
+
+.kk-sb-title svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+}
+
+/* پنل معنی واژه */
+.kk-dict-backdrop {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 60;
+}
+.kk-dict-backdrop[data-open="1"] {
+  display: flex;
+}
+.kk-dict {
+  width: min(460px, calc(100vw - 32px));
+  margin-top: 96px;
+  background: var(--surface);
+  color: var(--tx);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 60vh;
+}
+.kk-dict-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.kk-dict-word {
+  font-size: 17px;
+  font-weight: 700;
+}
+.kk-dict-body {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 40px;
+}
+.kk-dict-loading,
+.kk-dict-miss {
+  color: var(--tx2);
+  font-size: 13px;
+  line-height: 1.9;
+  margin: 0;
+}
+.kk-dict-item {
+  background: var(--raised);
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.kk-dict-src {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.kk-dict-text {
+  font-size: 13.5px;
+  line-height: 2;
+  margin: 0;
+}
+.kk-dict-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--bd);
+  padding-top: 10px;
+}
+.kk-dict-links a {
+  text-decoration: none;
+}
+
+/* v1.6: ذخیرهٔ انتخابی */
+.kk-savebook {
+  width: auto !important;
+  padding: 0 10px;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.kk-savebook .kk-save-txt {
+  white-space: nowrap;
+}
+.kk-savebook[data-saved="1"] {
+  color: #2e7d32;
+}
+.kk-root[data-theme="dark"] .kk-savebook[data-saved="1"] {
+  color: #7bc47f;
+}
+.kk-savedlg-backdrop {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 70;
+  padding: 24px;
+}
+.kk-savedlg-backdrop[data-open="1"] {
+  display: flex;
+}
+.kk-savedlg {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.kk-savedlg-hint {
+  margin: 0;
+  font-size: 12.5px;
+  opacity: 0.75;
+  line-height: 1.9;
+}
+input.kk-savedlg-tags {
+  resize: none;
+  height: auto;
+  min-height: 0;
+}

@@ -1,0 +1,24 @@
+name: Bug report / گزارش اشکال
+description: Report a reproducible Bookit problem without private data.
+body:
+  - type: markdown
+    attributes:
+      value: Do not include private notes, backups, credentials or sensitive URLs. اطلاعات شخصی نفرستید.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened? / چه اتفاقی افتاد؟
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce / مراحل تکرار
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and Bookit versions / نسخه مرورگر و افزونه
+    validations:
+      required: true

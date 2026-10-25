@@ -1,0 +1,7 @@
+node_modules/
+vendor/
+shared/icons.js
+artifacts/
+test-results/
+playwright-report/
+package-lock.json

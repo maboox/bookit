@@ -1,0 +1,135 @@
+<!doctype html>
+<html dir="rtl" lang="fa">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bookit · Your reading space</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="?tab=1"
+        ><span class="logo" data-icon="book-open"></span
+        ><span
+          ><h1>Bookit<span class="version">2.0</span></h1>
+          <span class="sub">جایی برای خواندن و فکر کردن</span></span
+        ></a
+      >
+      <div class="hactions">
+        <button id="langBtn" class="hbtn" title="English">EN</button
+        ><button id="themeBtn" class="hbtn" title="تم روشن/تاریک"></button
+        ><button id="sizeBtn" class="hbtn" title="اندازه پنجره"></button
+        ><button
+          id="fullBtn"
+          class="hbtn"
+          title="کتابخانه در تب جدید"
+          data-icon="arrow-up-right"
+        ></button>
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="eyebrow">
+          <span class="status-dot"></span
+          ><span id="localLabel">کتابخانه شخصی شما</span>
+        </div>
+        <h2 id="heroTitle">وب را ورق بزن.</h2>
+        <p id="heroText">
+          مقاله‌ها را نگه دار، با تمرکز بخوان و فکرهایت را کنار متن بنویس.
+        </p>
+        <button id="toggle" class="primary" disabled>
+          باز کردن نمای مطالعه
+        </button>
+        <p id="pageStatus" class="hint" role="status"></p>
+        <div id="saveRow" hidden>
+          <input id="saveTags" type="text" maxlength="500" /><button
+            id="saveBtn"
+          ></button>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-page">
+            <span></span><span></span><span></span><span></span><i></i
+            ><span></span>
+          </div>
+          <div class="art-badge" data-icon="bookmark"></div>
+        </div>
+      </section>
+      <div class="stats" aria-label="Library overview">
+        <div>
+          <span data-icon="library"></span><strong id="statBooks">۰</strong
+          ><span id="statBooksLabel">مقاله ذخیره‌شده</span>
+        </div>
+        <div>
+          <span data-icon="highlighter"></span><strong id="statNotes">۰</strong
+          ><span id="statNotesLabel">هایلایت و یادداشت</span>
+        </div>
+        <div>
+          <span data-icon="shield-check"></span
+          ><strong id="statPrivate">محلی</strong
+          ><span id="statPrivateLabel">بدون حساب کاربری</span>
+        </div>
+      </div>
+      <section class="library-section">
+        <div class="sec-head">
+          <h2>
+            <span data-icon="library"></span
+            ><span id="libraryTitle">کتابخانه من</span
+            ><span id="libCount" class="count"></span>
+          </h2>
+          <span class="mini-label" id="offlineLabel">آماده مطالعه آفلاین</span>
+        </div>
+        <div class="lib-tools">
+          <div class="search-box">
+            <span data-icon="search"></span
+            ><input
+              id="search"
+              type="search"
+              maxlength="300"
+              placeholder="جست‌وجو در مقاله‌ها، یادداشت‌ها و تگ‌ها…"
+            />
+          </div>
+          <select id="sort" title="مرتب‌سازی">
+            <option value="new">جدیدترین</option>
+            <option value="old">قدیمی‌ترین</option>
+            <option value="alpha">الفبا</option>
+            <option value="ann">بیشترین یادداشت</option>
+          </select>
+        </div>
+        <p class="searchhint"></p>
+        <div id="tagFilters" class="tagbar"></div>
+        <div id="library"></div>
+      </section>
+      <section class="backup-section">
+        <div>
+          <h2 id="backupTitle">یک نسخه، برای اطمینان.</h2>
+          <p class="hint" id="backupHint"></p>
+        </div>
+        <div class="row">
+          <button id="export" class="ghost"></button
+          ><button id="importBtn" class="ghost"></button
+          ><input
+            type="file"
+            id="importFile"
+            accept="application/json,.json"
+            hidden
+          />
+        </div>
+      </section>
+      <p id="message" class="msg" role="status" aria-live="polite"></p>
+    </main>
+    <footer>
+      <span data-icon="book-open"></span
+      ><span id="footerText">با آرامش بخوان. با خودت نگه دار.</span
+      ><a
+        href="https://github.com/maboox/bookit"
+        target="_blank"
+        rel="noopener noreferrer"
+        >GitHub <span data-icon="arrow-up-right"></span
+      ></a>
+    </footer>
+    <script src="../vendor/purify.min.js"></script>
+    <script src="../shared/core.js"></script>
+    <script src="../shared/icons.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

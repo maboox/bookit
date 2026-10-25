@@ -1,0 +1,11 @@
+{
+  "vendor/purify.min.js": "cd37898f9782adf54820c413191b5691803f0f137c799d6edcfd38523b4c2c31",
+  "vendor/DOMPurify.LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "vendor/Readability.js": "34dcab3d0832d0019f02990eed6b6124e029e8c32b9f0c6f2550544ff8dff174",
+  "vendor/Readability.LICENSE": "a5b1e8181751ce05b85b7bfaa832b785e87086250a5148e679d17ca9bdcfa958",
+  "fonts/vazirmatn-arabic.woff2": "84a382e46c30fb4f73d0e3800c16d0af15888e2731e57fa5f93e2c29a2c6a957",
+  "fonts/vazirmatn-latin.woff2": "d29c041cd4294af893cf3c01dfab6d47202c667ab55d702f68782599918c651d",
+  "fonts/OFL.txt": "e6f4ce7b6c830d5a25a4f8ac777c267cd7d3c180bc2a7150ca57cbb9b280c4b7",
+  "vendor/Lucide.LICENSE": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57",
+  "shared/icons.js": "1936974bfa8925b68cde1ce65a2ee93349d6b1822e9c5ede2e52d434faad18c1"
+}
