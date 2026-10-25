@@ -87,6 +87,12 @@ test.beforeEach(async () => {
     await chrome.storage.local.set(data);
   }, books);
 });
+test("library shortcut is registered in the installed browser", async () => {
+  const commands = await worker.evaluate(() => chrome.commands.getAll());
+  expect(
+    commands.find((command) => command.name === "open-library")?.shortcut,
+  ).toBeTruthy();
+});
 test("installed extension has no automatic page access; saved library works offline", async () => {
   const article = await context.newPage();
   await article.goto(base + "/tests/article.html");

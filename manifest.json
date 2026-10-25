@@ -1,13 +1,13 @@
 {
   "manifest_version": 3,
   "name": "Bookit",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "minimum_chrome_version": "120",
   "background": { "service_worker": "background.js" },
   "commands": {
     "open-library": {
       "description": "Open your Bookit library",
-      "suggested_key": { "default": "Alt+Shift+B" }
+      "suggested_key": { "default": "Ctrl+Shift+Y" }
     }
   },
   "description": "A calm bilingual reader with offline articles, highlights and notes. کتابخانهٔ محلی برای مطالعه و یادداشت‌برداری",

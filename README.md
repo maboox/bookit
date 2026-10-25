@@ -51,7 +51,7 @@ locally. Remote images and embeds are excluded from saved copies.
 
 ## Install
 
-1. Download **bookit-2.0.0.zip** from [Releases](https://github.com/maboox/bookit/releases/latest) and extract it.
+1. Download **bookit-2.0.1.zip** from [Releases](https://github.com/maboox/bookit/releases/latest) and extract it.
 2. Open `chrome://extensions` in Chrome or `edge://extensions` in Edge.
 3. Enable **Developer mode**, choose **Load unpacked**, and select the extracted
    `bookit` folder containing `manifest.json`.
@@ -76,7 +76,7 @@ Web Store listing. A store publication is a separate process.
    matching source addresses and included settings are replaced. Export first
    before a restore if you want to preserve an older copy.
 
-**Keyboard:** `Alt+Shift+B` opens the library. In page mode use the arrows,
+**Keyboard:** `Ctrl+Shift+Y` opens the library. In page mode use the arrows,
 `PageUp`/`PageDown` or Space. Escape closes a dialog or the reader. Shortcuts can
 be changed in the browser's extension shortcut settings.
 

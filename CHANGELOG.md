@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.1 — 2026-10-25
+
+- Changed the default library shortcut to Ctrl+Shift+Y because Alt+Shift+B is
+  reserved by Chromium browsers and was not registered.
+- Added an installed-extension regression check for shortcut registration.
+- Updated pinned checkout, setup-node and artifact GitHub Actions to current releases.
+
 ## 2.0.0 — 2026-10-25
 
 - Rebuilt the bilingual library with a blue-and-white interface, dark mode,
